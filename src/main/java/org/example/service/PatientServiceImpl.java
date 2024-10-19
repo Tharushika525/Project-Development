@@ -13,12 +13,16 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PatientServiceImpl implements PatientService{
+
     final PatientRepository repository;
     final ModelMapper mapper;
-    List<Patient> patientList = new ArrayList<>();
+
     @Override
     public List<Patient> getPatient() {
-        return patientList;
+        List<Patient> patients = new ArrayList<>();
+        repository.findAll().forEach(patient ->{patients.add(mapper.map(patient, Patient.class));
+        });
+        return patients;
 
     }
     @Override
